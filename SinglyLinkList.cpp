@@ -35,9 +35,9 @@ class SinglyLinkList{                                 // SinglyLinkList 單向�
             node* Position(int index);                //回傳從頭開始第index個的節點
             void Shownode(int index);                 //印出從頭開始第index個的節點
             void ShowList();                          //印出整個串列
-            void Front_insert(int index,int value);   //把值為value節點插在第index個節點的前面
-            void Back_insert(int index, int value);   //把值為value節點插在第index個節點的後面
-            void Delete_node(int value);              //刪除值為value的節點
+            void Front_insert(int value,int index);   //把值為value節點插在第index個節點的前面
+            void Back_insert(int value,int index);    //把值為value節點插在第index個節點的後面
+            void Delete_node(int index);              //刪除第index個節點
             void Clear();                             //清空整個串列
             void Inverse();                           //將串列的方向調換，原本的起點變成尾巴
 };
@@ -68,7 +68,7 @@ node* SinglyLinkList::Position(int index){
 //但是換成 A是一個空箱子 B是一個裝著水的箱子 你就可以說 A跟B一定是不一樣的箱子 因為A根本沒裝東西
 //NULL的意思就是指這個箱子(指標)裡面沒裝東西(物件)的意思
 
-//thi指標說明：待補
+//this指標說明：待補
 
 
 
@@ -92,7 +92,7 @@ void SinglyLinkList::ShowList(){
       }
 }
 
-void SinglyLinkList::Front_insert(int index,int value){
+void SinglyLinkList::Front_insert(int value,int index=1){
       node* newnode=new node(value);                  //宣告要插入的新節點
 
       if(index==1||!head){                                             
@@ -111,7 +111,7 @@ void SinglyLinkList::Front_insert(int index,int value){
       } 
 }
 
-void SinglyLinkList::Back_insert(int index,int value){
+void SinglyLinkList::Back_insert(int value,int index=1){
       node* newnode=new node(value);                  //宣告要插入的新節點         
 
       if(!head){
@@ -135,13 +135,50 @@ void SinglyLinkList::Back_insert(int index,int value){
       }
 }
 
-void Delete_node(int value){
-      node* dnode;
+void SinglyLinkList::Delete_node(int index){
+      if(!head)cout<<"No any node can be deleted!\n";
+      else if(index<1||index>length)cout<<"You can't delete the node out of List range!\n";
+      else{
+            if(index==1){
+                  node* dnode=head;
+                  head=head->next;
+                  delete(dnode);
+                  length--;
+            }
+            else{
+                  node *previous=this->Position(index-1),*dnode=this->Position(index);
+                  previous->next=dnode->next;
+                  delete (dnode);
+                  length--;
+            }
+      }
 }
+
+void SinglyLinkList::Clear(){
+      while(head){
+            node* temp=head;
+            head=head->next;
+            delete(temp);
+      }
+}
+
+void SinglyLinkList::Inverse(){
+      
+      if(length==0||length==1)return ;
+      node *trail=NULL,*mid=NULL;
+
+      while(head){
+            trail=mid;                                //trail移動到mid
+            mid=head;                                 //mid移動到head
+            head=head->next;                          //重要：head先移到next，因為mid現在指到了head，先調整mid->next的話會直接把head的next一起修改掉
+            mid->next=trail;                          //mid->next to trail
+      }
+      head=mid;
+}     
 
 int main(){
       SinglyLinkList test;
-
+      
 
       return 0;
 }
