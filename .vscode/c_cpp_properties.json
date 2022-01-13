@@ -3,8 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**",
-                "D:/DataSturcture and Algorithm Implementation/header"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",

@@ -2,7 +2,6 @@
 
 //使用SinglyLinkList實作Stack
 
-
 using namespace std;
 
 class LinkedStack;
@@ -68,10 +67,10 @@ int main(){
     for(int i=0;i<12;i++)test.Push(i);
     
     while(!test.Isempty()){
-        cout<<test.Top()<<endl;
+        cout<<"Top = "<<test.Top()<<" Size = "<<test.Size()<<endl;
         test.Pop();
     }
-
+    test.Pop();
 
     return 0;
 }

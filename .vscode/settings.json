@@ -23,6 +23,7 @@
         "xhash": "cpp",
         "xmemory": "cpp",
         "xstring": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "ostream": "cpp"
     }
 }
