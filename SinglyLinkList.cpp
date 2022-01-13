@@ -177,6 +177,28 @@ void SinglyLinkList::Inverse(){
       head=mid;
 }
 
+void SinglyLinkList::Clear(){
+      while(head){
+            node* temp=head;
+            head=head->next;
+            delete(temp);
+      }
+}
+
+void SinglyLinkList::Inverse(){
+      
+      if(length==0||length==1)return ;
+      node *trail=NULL,*mid=NULL;
+
+      while(head){
+            trail=mid;                                //trail移動到mid
+            mid=head;                                 //mid移動到head
+            head=head->next;                          //重要：head先移到next，因為mid現在指到了head，先調整mid->next的話會直接把head的next一起修改掉
+            mid->next=trail;                          //mid->next to trail
+      }
+      head=mid;
+}     
+
 int main(){
 
       SinglyLinkList test;
