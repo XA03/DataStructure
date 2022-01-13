@@ -2,6 +2,27 @@
     "files.associations": {
         "iostream": "cpp",
         "vector": "cpp",
-        "array": "cpp"
+        "array": "cpp",
+        "bitset": "cpp",
+        "iterator": "cpp",
+        "xutility": "cpp",
+        "deque": "cpp",
+        "filesystem": "cpp",
+        "forward_list": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "memory": "cpp",
+        "queue": "cpp",
+        "regex": "cpp",
+        "set": "cpp",
+        "span": "cpp",
+        "stack": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "xhash": "cpp",
+        "xmemory": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp"
     }
 }
