@@ -10,6 +10,7 @@ class ArrayStack{
     private:
         int topindex,capacity;
         int *stack;
+        void DoubleCapacity();                  //為甚麼要放private的原因是因為這個Function不會在外部，也不給物件主動呼叫
     public:
         ArrayStack():topindex(-1),capacity(1){
             stack=new int[capacity];
@@ -19,7 +20,6 @@ class ArrayStack{
         int  Top();
         int  getSize();
         bool Isempty();
-        void DoubleCapacity();
 };
 
 void ArrayStack::Push(int value){
