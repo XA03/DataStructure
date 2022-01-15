@@ -6,21 +6,20 @@ using namespace std;
 
 class LinkedStack;
 
-class node
-{ 
+class node{ 
     private:
         int value;  
         node *next; 
     public:
-        node() : value(0), next(NULL){};
-        node(int input) : value(input), next(NULL){}; 
+        node():value(0),next(NULL){};
+        node(int input):value(input),next(NULL){}; 
         friend class LinkedStack;                 
 };
 
 class LinkedStack{
     private:
         int size=0;
-        node* top;
+        node *top;
     public:
         LinkedStack():size(0),top(NULL){};
         void Push(int value);       //把元素放在stack的最上面

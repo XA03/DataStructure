@@ -4,7 +4,7 @@ using namespace std;
 
 // Coding 有參考 http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html 之文章
 
-//SinglyLinkList 單向鏈結串列 (單向鏈表)
+//SinglyLinkList 單向鏈結串列
 
 //在進入程式前，先在這裡解釋一下個人對SinglyLinkList的看法，這是一個不循序的資料結構，也就是說各個節點(承載data的單位)間的記憶體位址不連續。
 //我們利用指標去指向各個節點的記憶體位址，再將其有順序的連接在一起，形成一條單向的鏈 所以稱為 單向鏈結串列、單向鏈表
@@ -13,24 +13,22 @@ using namespace std;
 
 class SinglyLinkList; //因為需要freind 所以得先宣告在這裡
 
-class node
-{ // SinglyLinkList 中的單位節點
+class node{ // SinglyLinkList 中的單位節點
 private:
       int value;  //節點本身的值
       node *next; //指向下一個節點的指標
 public:
-      node() : value(0), next(NULL){};
-      node(int input) : value(input), next(NULL){}; //constructor後的冒號是給 class data member assign的方法 如果是const data member更適合這種assignment(賦值、=)
+      node():value(0),next(NULL){};
+      node(int input):value(input),next(NULL){}; //constructor後的冒號是給 class data member assign的方法 如果是const data member更適合這種assignment(賦值、=)
       friend class SinglyLinkList;                  //表示class SinglyLinkList中可以access class node裡的 所有東西
 };
 
-class SinglyLinkList
-{ // SinglyLinkList 單向鏈節串列 (單向鏈表)
+class SinglyLinkList{ // SinglyLinkList 單向鏈節串列 
 private:
       int length; //SinglyLinkList長度
       node *head; //SinglyLinkList的起點
 public:
-      SinglyLinkList() : length(0), head(NULL){};
+      SinglyLinkList():length(0),head(NULL){};
       int Length();                            //給出串列長度
       node *Position(int index);               //回傳從頭開始第index個的節點
       void Shownode(int index);                //印出從頭開始第index個的節點
@@ -50,7 +48,6 @@ node* SinglyLinkList::Position(int index){
       node* temp=head;                                //暫用指標避免直接使用head
 
       if(index<1||index>length||!temp)return NULL;    //如果index超出範圍或是串列本身為空，回傳一個指向NULL的指標(空指標)
-
       int i=1;                                      
       while(index!=i){                              
             temp=temp->next;                          
@@ -68,12 +65,11 @@ node* SinglyLinkList::Position(int index){
 //但是換成 A是一個空箱子 B是一個裝著水的箱子 你就可以說 A跟B一定是不一樣的箱子 因為A根本沒裝東西
 //NULL的意思就是指這個箱子(指標)裡面沒裝東西(物件)的意思
 
-//this指標說明：待補
 
 
 
 void SinglyLinkList::Shownode(int index){
-      node* target=this->Position(index);
+      node *target=Position(index);
       if(!target)cout<<"Target is out of List range!\n";
       else cout<<target->value<<endl;
 }
@@ -93,7 +89,7 @@ void SinglyLinkList::ShowList(){
 }
 
 void SinglyLinkList::Front_insert(int value,int index=1){
-      node* newnode=new node(value);                 
+      node *newnode=new node(value);                 
 
       if(index==1||!head){                                             
             newnode->next=head;
@@ -103,7 +99,7 @@ void SinglyLinkList::Front_insert(int value,int index=1){
       else{
             if(index<1||index>length)cout<<"You can't insert in this position!\n";
             else{
-                  node* target=this->Position(index-1);
+                  node *target=Position(index-1);
                   newnode->next=target->next;
                   target->next=newnode;
                   length++;
@@ -112,7 +108,7 @@ void SinglyLinkList::Front_insert(int value,int index=1){
 }
 
 void SinglyLinkList::Back_insert(int value,int index=1){
-      node* newnode=new node(value);                         
+      node *newnode=new node(value);                         
 
       if(!head){
           head=newnode;
@@ -121,7 +117,7 @@ void SinglyLinkList::Back_insert(int value,int index=1){
       else{
             if(index<1||index>length)cout<<"You can't insert in this position!\n";
             else{
-                  node* target=this->Position(index);
+                  node *target=Position(index);
                   if(index==length){
                         target->next=newnode;
                         length++;
@@ -140,7 +136,7 @@ void SinglyLinkList::Delete_node(int index){
       else if(index<1||index>length)cout<<"You can't delete the node out of List range!\n";
       else{
             if(index==1){
-                  node* dnode=head;
+                  node *dnode=head;
                   head=head->next;
                   delete(dnode);
                   length--;
@@ -156,7 +152,7 @@ void SinglyLinkList::Delete_node(int index){
 
 void SinglyLinkList::Clear(){
       while(head){
-            node* temp=head;
+            node *temp=head;
             head=head->next;
             delete(temp);
       }
