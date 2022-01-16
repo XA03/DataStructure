@@ -17,12 +17,28 @@ using namespace std;
 
 //光是left,right的設定 和 迴圈的loop condition設定就有不少細節呢.....
 
-int BinarySearch(vector<int>arr,int left,int right,int target){
+int BinarySearchNE(vector<int>arr,int left,int right,int target){
     int ret=-1,mid;
-
-    while(left<=right){
-        mid=left+(right-left)/2;  // 這樣做的意義在於 mid本來就是 (left+right)/2 可是left+right是有可能overflow的 (而且部分題目很喜歡這樣搞)
+    // left<right 表示 區間為[left,right) 所以這裡right要用的是Size本身(因為0-indexed) 不然在縮減範圍的時候會有邊界元素被吃掉
+    while(left<right){
+        mid=left+(right-left)/2;  // 這樣做的意義在於 mid本來就是 (left+right)/2 可是left+right是有可能overflow的
         if(arr[mid]<target)left=mid+1;
+        else if(arr[mid]>target)right=mid;  //這樣就可以避免區間-1的問題
+        else{
+            ret=mid;
+            return mid;
+        }
+    }
+
+    return ret;
+}
+
+int BinarySearchE(vector<int>arr,int left,int right,int target){
+    int ret=-1,mid;
+    // left<=right → [left,right)
+    while(left<=right){
+        mid=left+(right-left)/2;  
+        if(arr[mid]<target)left=mid+1;  //為了避免 right-left=1這種情況 left和right必須都可以移動
         else if(arr[mid]>target)right=mid-1;
         else{
             ret=mid;
@@ -30,19 +46,25 @@ int BinarySearch(vector<int>arr,int left,int right,int target){
         }
     }
 
-
     return ret;
 }
+
+//上面列出的兩種BinarySearch是最簡單的搜尋指定目標 有就有沒有就沒有，但需要注意邊界的問題和loop的條件
+//接下來討論Binary Search除了找指定元素外還可以做甚麼
+
+//1.搜尋第一個在容器中>=target的值
+
+int BSgeNum(vector<int>arr,int left,int right,int target){
+    
+}
+
 
 
 int main(){
 
     vector<int>test={1,2,3,4,5,6,7,8,9,10};
-    cout<<BinarySearch(test,0,10,4);
-
-
-
-
+    cout<<BinarySearchNE(test,0,10,10)<<endl;   //找不到 因為第一次結束後5已經變成邊界了且不包含5
+    cout<<BinarySearchE(test,0,9,10)<<endl;
 
 
     return 0;
