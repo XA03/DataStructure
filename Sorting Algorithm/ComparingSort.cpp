@@ -26,14 +26,44 @@ using namespace std;
 // 在C=1/2 n0=1 n>=n0 的情況下得 log(n!)>=(1/2)*n*log(n)  log(n!)=Omega(nlogn)
 
 //驚奇的發現 log(n!)居然上下界相同欸 ， 所以 log(n!)=Theta(nlogn) ，於是得證 只要是基於比較的排序演算法，其最佳的時間複雜度必然是nlogn
+//接下來開始介紹 各種基於比較的演算法
 
+void showlist(vector<int>arr){
+    for(int i=0;i<arr.size();i++)cout<<arr[i]<<" ";
+    cout<<endl;
+}
+
+int BubbleSort(vector<int>arr){
+
+    //流程說明：首先我們將容器分為未排序和已排序的部分，如果前一筆>後一筆則交換，只要還有未排序的部分，就繼續執行下去直到容器尾巴
+    //優化：只要在未排序的部分中比對都沒有交換位置→代表 未排序的部分本身已有序 + 已排序的部分 整體排序完成 →退出loop
+    //時間複雜度 (Time Complexity)Best Case
+    //Best Case:O(n) 只需要跑一輪就退出，表示本來就是排序好的 (n-1)次比較 所以次數=O(n)
+    //Worst Case:O(n^2) 因為每次都要交換直到最後一輪的最後一次才會完成 所以次數=(n-1)+(n-2)+.....+1=n*(n-1)/2=O(n^2)
+    //Average Case:O(n^2) 但Average Case的證明我們之後再補上 Average不是邊界狀況，我們需要模擬平均的狀況才能證明
+
+    bool end=false;//用來提前退出的條件
+    int times=0;
+    for(int i=0;i<arr.size()-1&&!end;i++){
+        end=true;
+        for(int j=0;j<arr.size()-1-i;j++){//因為是兩兩比較，所以不需要跑到最後一個元素(沒有下一個可以比了)，-i表示前面已經有排序好的元素了，不需要多檢查。
+            times++;
+            if(arr[j]>arr[j+1]){//用來控制由小到大或是由大到小的排序方式，但一般來說，bubble就是小的會往上浮 所以還是由小排到大較合適 (個人觀念)
+                swap(arr[j],arr[j+1]);
+                end=false;//只有有產生交換就表示這一輪還不能退出
+            }
+        }
+        //每一輪都會檢查未排序的部分，若檢查完發現未排序的部分都已經排好了，會提前退出。
+    }
+    return times;//實際的比較次數
+}
 
 
 
 int main(){
 
-
-
+    vector<int>test={0,1,2,3,4};
+    cout<<BubbleSort(test);
 
 
     return 0;
