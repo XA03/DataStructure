@@ -59,7 +59,7 @@ void BubbleSort(vector<int>arr){
     showlist(arr);
 }
 
-int SelectionSort(vector<int>arr){
+void SelectionSort(vector<int>arr){
     
     //流程說明，將資料分成已排序和未排序，從未排序的部分取出 最大值 或是 最小值加入到已排序的尾巴
     //Best Case: O(n^2)     就算排好也得(n-1)+(n-2)+....+1次=n*(n-1)/2 =O(n^2)
@@ -80,14 +80,27 @@ int SelectionSort(vector<int>arr){
 }
 
 void InsertionSort(vector<int>arr){
-    
+    //流程說明：分成已排序和未排序兩部分，每次處理未排序的第一筆將其放到已排序的部分中適當位置
+    //並且從已排序的尾端往前掃描，遇到
+    //Best Case: O(n)
+    //Average Case: O(n^2)
+    //Worst Case: O(n^2)
+    //SC :Theta (1)
+    //Stable Sorting
+    int i,j,temp;
+    for(i=1;i<arr.size();i++){//從1開始的原因是第一個已排序的元素一定是arr[0](沒得排序直接插入)
+        temp=arr[i];
+        for(j=i;j>0&&temp<arr[j-1];j--)arr[j]=arr[j-1];//由i(已排序的尾巴)往前掃瞄，若前一個比temp小表示要繼續找直到j=0或是temp比前一個大為止
+        arr[j]=temp;
+        showlist(arr);
+    }
 }
 
 
 int main(){
 
     vector<int>test={7,8,2,1,5,4,3,0};
-
+    InsertionSort(test);
 
 
     return 0;
