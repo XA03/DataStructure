@@ -4,6 +4,7 @@ using namespace std;
 
 //參考文章 http://notepad.yehyeh.net/Content/Algorithm/Sort/Sort.php
 //        https://wangwilly.github.io/willywangkaa/2018/08/28/Algorithm-Time-Complexity/
+//        http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html
 
 //Sorting，排序。需要排序不是因為資料排整齊比較好看，是排序後的資料才能做有效率的搜尋。在滿坑滿谷的資料中搜尋我們需要的才是現實需要的功能。
 //以資料量區分成內部和外部排序兩種，內部因為量少的關係可以塞進記憶體內，外部則是透過儲存裝置分次載入一部分並針對載入的部分做內部排序
@@ -33,7 +34,7 @@ void showlist(vector<int>arr){
     cout<<endl;
 }
 
-int BubbleSort(vector<int>arr){
+void BubbleSort(vector<int>arr){
 
     //流程說明：首先我們將容器分為未排序和已排序的部分，如果前一筆>後一筆則交換，只要還有未排序的部分，就繼續執行下去直到容器尾巴
     //優化：只要在未排序的部分中比對都沒有交換位置→代表 未排序的部分本身已有序 + 已排序的部分 整體排序完成 →退出loop
@@ -41,13 +42,13 @@ int BubbleSort(vector<int>arr){
     //Best Case:O(n) 只需要跑一輪就退出，表示本來就是排序好的 (n-1)次比較 所以次數=O(n)
     //Worst Case:O(n^2) 因為每次都要交換直到最後一輪的最後一次才會完成 所以次數=(n-1)+(n-2)+.....+1=n*(n-1)/2=O(n^2)
     //Average Case:O(n^2) 但Average Case的證明我們之後再補上 Average不是邊界狀況，我們需要模擬平均的狀況才能證明
+    //Space Complexity : 只需要一個變數用來暫存交換時的變數值
+    //Stable Sort，理由是等於時不會交換
 
     bool end=false;//用來提前退出的條件
-    int times=0;
     for(int i=0;i<arr.size()-1&&!end;i++){
         end=true;
         for(int j=0;j<arr.size()-1-i;j++){//因為是兩兩比較，所以不需要跑到最後一個元素(沒有下一個可以比了)，-i表示前面已經有排序好的元素了，不需要多檢查。
-            times++;
             if(arr[j]>arr[j+1]){//用來控制由小到大或是由大到小的排序方式，但一般來說，bubble就是小的會往上浮 所以還是由小排到大較合適 (個人觀念)
                 swap(arr[j],arr[j+1]);
                 end=false;//只有有產生交換就表示這一輪還不能退出
@@ -55,15 +56,38 @@ int BubbleSort(vector<int>arr){
         }
         //每一輪都會檢查未排序的部分，若檢查完發現未排序的部分都已經排好了，會提前退出。
     }
-    return times;//實際的比較次數
+    showlist(arr);
 }
 
+int SelectionSort(vector<int>arr){
+    
+    //流程說明，將資料分成已排序和未排序，從未排序的部分取出 最大值 或是 最小值加入到已排序的尾巴
+    //Best Case: O(n^2)     就算排好也得(n-1)+(n-2)+....+1次=n*(n-1)/2 =O(n^2)
+    //Average Case: O(n^2)  
+    //Worst Case: O(n^2)
+    //SC :一樣只需要一個變數來暫存交換時的變數值
+    //Unstable Sort，舉個例子說明  {2*,3,1,4,2}的流程是→{1,3,2*,4,2}→{1,2*,3,4,2}→{1,2*,2,3,4} 由此可知2*,2明明值相同但是位置卻交換了ㄋ
+    int index;
+
+    for(int i=0;i<arr.size()-1;i++){
+        index=i;//紀錄已排序的尾巴
+        for(int j=i+1;j<arr.size();j++){
+            if(arr[j]<arr[index])index=j;
+        }
+        if(i!=index)swap(arr[i],arr[index]);//如果有符合條件的值要被交換過去
+    }
+    showlist(arr);
+}
+
+void InsertionSort(vector<int>arr){
+    
+}
 
 
 int main(){
 
-    vector<int>test={0,1,2,3,4};
-    cout<<BubbleSort(test);
+    vector<int>test={7,8,2,1,5,4,3,0};
+
 
 
     return 0;
