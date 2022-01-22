@@ -45,6 +45,22 @@ void partition(vector<int>arr,int pivot){
         }
     }
     swap(arr[i+1],arr[pivot]);
+    showlist(arr);
+}
+
+int partitionforQsort(vector<int>arr,int left,int right){
+    int pivot=arr[left];
+    int i=left-1;
+    for(int iter=left;iter<right+1;iter++){
+        showlist(arr);
+        if(arr[iter]<pivot){
+            i++;
+            swap(arr[i],arr[iter]);
+        }
+    }
+    i++;
+    showlist(arr);
+    return i;
 }
 
 void BubbleSort(vector<int>arr){
@@ -131,9 +147,11 @@ void QuickSort(vector<int>arr,int left,int right){
 
 
 
+
 int main(){
 
     vector<int>test={7,8,2,1,5,4,3,0};
+    partition(test,0);
     
 
     return 0;
