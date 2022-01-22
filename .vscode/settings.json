@@ -24,6 +24,7 @@
         "xmemory": "cpp",
         "xstring": "cpp",
         "xtree": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "utility": "cpp"
     }
 }

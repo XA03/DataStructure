@@ -48,18 +48,17 @@ void partition(vector<int>arr,int pivot){
     showlist(arr);
 }
 
-int partitionforQsort(vector<int>arr,int left,int right){
+int partitionforQsort(vector<int>&arr,int left,int right){
     int pivot=arr[left];
     int i=left-1;
-    for(int iter=left;iter<right+1;iter++){
-        showlist(arr);
+    for(int iter=left+1;iter<=right;iter++){
         if(arr[iter]<pivot){
             i++;
-            swap(arr[i],arr[iter]);
+            swap(arr[i+1],arr[iter]);
         }
     }
     i++;
-    showlist(arr);
+    swap(arr[i],arr[left]);
     return i;
 }
 
@@ -125,7 +124,7 @@ void InsertionSort(vector<int>arr){
     }
 }
 
-void QuickSort(vector<int>arr,int left,int right){
+void QuickSort(vector<int>&arr,int left,int right){
 
     //流程說明選一個基準值(Pivot)，把比Pivot小的擺左邊，比Pivot大的擺右邊 (Partition)
     //分別對Pivot左邊序列和Pivot右邊序列重複動作(Recursive)，直到序列長度=1或沒有元素
@@ -140,9 +139,11 @@ void QuickSort(vector<int>arr,int left,int right){
     //Worst Case:O(n)
     //Unstable Sorting
     
-
-
-
+    if(left<right){
+        int pivot=partitionforQsort(arr,left,right);
+        QuickSort(arr,left,pivot-1);
+        QuickSort(arr,pivot+1,right);
+    }
 }
 
 
@@ -151,7 +152,9 @@ void QuickSort(vector<int>arr,int left,int right){
 int main(){
 
     vector<int>test={7,8,2,1,5,4,3,0};
-    partition(test,0);
+
+    QuickSort(test,0,test.size()-1);
+    showlist(test);
     
 
     return 0;
