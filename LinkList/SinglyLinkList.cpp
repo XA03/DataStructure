@@ -2,8 +2,6 @@
 
 using namespace std;
 
-// Coding 有參考 http://alrightchiu.github.io/SecondRound/linked-list-xin-zeng-zi-liao-shan-chu-zi-liao-fan-zhuan.html 之文章
-
 //SinglyLinkList 單向鏈結串列
 
 //在進入程式前，先在這裡解釋一下個人對SinglyLinkList的看法，這是一個不循序的資料結構，也就是說各個節點(承載data的單位)間的記憶體位址不連續。

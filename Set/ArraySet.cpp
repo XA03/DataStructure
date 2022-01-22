@@ -2,7 +2,6 @@
 
 using namespace std;
 
-//  參考 http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html 文章
 //  Set 是一種無序但是有根的資料結構，這裡使用Array來實現Set
 
 void showlist(int *arr){

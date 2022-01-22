@@ -2,9 +2,7 @@
 
 using namespace std;
 
-//參考文章 http://notepad.yehyeh.net/Content/Algorithm/Sort/Sort.php
-//        https://wangwilly.github.io/willywangkaa/2018/08/28/Algorithm-Time-Complexity/
-//        http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html
+
 
 //Sorting，排序。需要排序不是因為資料排整齊比較好看，是排序後的資料才能做有效率的搜尋。在滿坑滿谷的資料中搜尋我們需要的才是現實需要的功能。
 //以資料量區分成內部和外部排序兩種，內部因為量少的關係可以塞進記憶體內，外部則是透過儲存裝置分次載入一部分並針對載入的部分做內部排序

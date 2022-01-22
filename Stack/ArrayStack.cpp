@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 
-// 有參考 http://alrightchiu.github.io/SecondRound/stack-yi-arrayyu-linked-listshi-zuo.html 的文章
 // 使用 Array的方式實作Stack
 
 

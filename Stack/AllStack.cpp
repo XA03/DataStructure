@@ -2,7 +2,6 @@
 
 using namespace std;
 
-//本篇實作有參考 http://alrightchiu.github.io/SecondRound/stack-neng-gou-zai-o1qu-de-zui-xiao-zhi-de-minstack.html 的文章
 
 //MinStack是可以在時間複雜度O(1)取得Stack中最小元素的Stack 反之取得最大元素的是MaxStack
 //嘗試使用三個stack來製作可以在O(1)取得最大最小元素的Stack，Google了一下發現這好像比較接近MinMaxStack

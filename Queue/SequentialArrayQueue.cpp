@@ -3,7 +3,6 @@
 using namespace std;
 
 //用Array實作Queue的方式之一，較浪費記憶體的Sequential Queue.
-//參考 http://alrightchiu.github.io/SecondRound/queue-yi-arrayshi-zuo-queue.html 文章
 
 class SequentialArrayQueue{
     private:

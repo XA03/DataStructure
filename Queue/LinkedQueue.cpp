@@ -2,7 +2,6 @@
 
 using namespace std;
 
-// Code有參考http://alrightchiu.github.io/SecondRound/queue-introjian-jie-bing-yi-linked-listshi-zuo.html 文章
 // 使用LinkList來實作Queue資料結構
 
 
