@@ -49,7 +49,7 @@ void partition(vector<int>arr,int pivot){
 int partitionforQsort(vector<int>&arr,int left,int right){
     int pivot=arr[left];
     int i=left-1;
-    for(int iter=left+1;iter<=right;iter++){
+    for(int iter=left+1;iter<right+1;iter++){
         if(arr[iter]<pivot){
             i++;
             swap(arr[i+1],arr[iter]);
