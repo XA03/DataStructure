@@ -13,11 +13,8 @@ int fib(int n){
 }
 
 int GCD(int a,int b){
-    if(b>a){
-        return GCD(b,a);
-    }
-    else if(a==b||b==0)return a;
-    return GCD(a%b,b);
+    if(b==0)return a;
+    return GCD(b,a%b);
 }
 
 int Permutation(int n,int k){
