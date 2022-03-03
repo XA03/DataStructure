@@ -25,6 +25,9 @@ class BinaryTree{
 
         void buildTree(vector<int>arr);
         void insertbyorder(int input);
+        void Preorder(Node* current);
+        void Inorder(Node* current);
+        void Postorder(Node* current);
 
         Node* inorderpredecessor(Node* current);    //inorder 的 前一個node
         Node* inordersuccessor(Node* current);      //inorder 的 下一個node
@@ -42,6 +45,9 @@ void BinaryTree::buildTree(vector<int>arr){
     root->value=arr[0];
 
     for(int i=1;i<arr.size();i++){
+
+        if(arr[i]==-1)continue;
+
         Node* new_node=new Node(arr[i]);
         if(i%2==1){
             new_node->parent=current;
@@ -59,12 +65,62 @@ void BinaryTree::buildTree(vector<int>arr){
 
 }
 
+void BinaryTree::insertbyorder(int input){
+    queue<Node*>q;
+    Node* current=root;
+
+    while(current){
+        if(current->left!=NULL)q.push(current->left);
+        else{
+            Node* new_node=new Node(input);
+            new_node->parent=current;
+            current->left=new_node;
+            break;
+        }
+
+        if(current->right!=NULL)q.push(current->right);
+        else{
+            Node* new_node=new Node(input);
+            new_node->parent=current;
+            current->right=new_node;
+            break;
+        }
+        current=q.front();
+        q.pop();
+    }
+
+}
+
+void BinaryTree::Preorder(Node* current){
+    if(current){
+        cout<<current->value<<endl;
+        Preorder(current->left);
+        Preorder(current->right);
+    }
+}
+
+void BinaryTree::Inorder(Node* current){
+    if(current){
+        Inorder(current->left);
+        cout<<current->value<<endl;
+        Inorder(current->right);
+    }    
+}
+
+void BinaryTree::Postorder(Node* current){
+    if(current){
+        Postorder(current->left);
+        Postorder(current->right);
+        cout<<current->value<<endl;
+    }
+}
+
 
 int main(){
 
-    vector<int>x={1};
+    vector<int>x={1,22,2,3,4,5};
     BinaryTree T(x);
-
+    T.Inorder(T.root);
 
     return 0;
 }
