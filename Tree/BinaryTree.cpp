@@ -28,9 +28,14 @@ class BinaryTree{
         void Preorder(Node* current);
         void Inorder(Node* current);
         void Postorder(Node* current);
+        void Levelorder(Node* current);
+        void Inorder_by_parent(Node* current);
+        void Inorder_Reverse(Node* current);
 
-        Node* inorderpredecessor(Node* current);    //inorder 的 前一個node
-        Node* inordersuccessor(Node* current);      //inorder 的 下一個node
+        Node* leftmost(Node* current);
+        Node* rightmost(Node* current);
+        Node* inorderpredecessor(Node* root);    //inorder 的 前一個node
+        Node* inordersuccessor(Node* root);      //inorder 的 下一個node
 };
 
 BinaryTree::BinaryTree(vector<int>arr){
@@ -115,12 +120,77 @@ void BinaryTree::Postorder(Node* current){
     }
 }
 
+void BinaryTree::Levelorder(Node* current){
+    queue<Node*>q;
+    q.push(root);
+
+    while(!q.empty()){
+        Node* cur=q.front();
+        q.pop();
+        cout<<cur->value<<endl;
+        if(cur->left!=NULL)q.push(cur->left);
+        if(cur->right!=NULL)q.push(cur->right);
+    }
+
+
+}
+
+Node* BinaryTree::leftmost(Node* current){
+    while(current->left!=NULL)current=current->left;
+    return current;
+}
+
+Node* BinaryTree::rightmost(Node* current){
+    while(current->right!=NULL)current=current->right;
+    return current;
+}
+
+Node* BinaryTree::inordersuccessor(Node* current){
+    if(current->right!=NULL)return leftmost(current->right);
+    Node* Successor=current->parent;
+    while(Successor!=NULL&&current==Successor->right){
+        current=Successor;
+        Successor=Successor->parent;
+    }
+    return Successor;
+}
+
+void BinaryTree::Inorder_by_parent(Node* root){
+    Node* current=new Node;
+    current=leftmost(root);
+
+    while(current){
+        cout<<current->value<<endl;
+        current=inordersuccessor(current);
+    }
+}
+
+Node* BinaryTree::inorderpredecessor(Node* current){
+    if(current->left!=NULL)return rightmost(current->left);
+    Node* Predeccessor=current->parent;
+    while(Predeccessor!=NULL&&current==Predeccessor->left){
+        current=Predeccessor;
+        Predeccessor=Predeccessor->parent;
+    }
+    return Predeccessor;
+}
+
+void BinaryTree::Inorder_Reverse(Node* root){
+    Node* current=new Node;
+    current=rightmost(root);
+    while(current){
+        cout<<current->value<<endl;
+        current=inorderpredecessor(current);
+    }
+}
+
 
 int main(){
 
     vector<int>x={1,22,2,3,4,5};
     BinaryTree T(x);
-    T.Inorder(T.root);
+    T.Inorder_by_parent(T.root);
+    T.Inorder_Reverse(T.root);
 
     return 0;
 }
