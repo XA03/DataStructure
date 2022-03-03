@@ -22,7 +22,7 @@ class CircularQueue{
 };
 
 void CircularQueue::Doublecapacity(){
-    int *newArrquque=new int[capacity*2]; //這裡不要直接像Sequential Array Queue一樣把長度乘2
+    int *newArrquque=new int[capacity*2]; //這裡不要直接像Sequential Array Queue一樣把public capacity乘2
     int newrear=front,size=getSize();
     
     /*
