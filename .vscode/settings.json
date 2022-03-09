@@ -26,5 +26,7 @@
         "xtree": "cpp",
         "ostream": "cpp",
         "utility": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.encoding": "cp950"
 }
