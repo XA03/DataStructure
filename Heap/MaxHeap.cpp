@@ -20,25 +20,115 @@ class BinaryHeap{
         BinaryHeap(int n){heap.resize(n+1);};
         
         bool IsHeapEmpty(){return heap.size()<=1;};
-        int FindPosition(int index);
-        int GetParent(int index){return floor(index/2);};
-
+        int GetParent(int index){
+            return floor((double)index/2.0);
+        }
+        int FindPosition(int content);
         void BuildBinaryHeap(vector<int>arr);
 
-        friend class MaxHeap;
+    friend class MaxHeap;
 };
 
-class MaxHeap{
+int BinaryHeap::FindPosition(int content){
+    int ret=0;
+    for(int i=1;i<heap.size();i++)if(heap[i].element==content)return i;
+    return 0;
+}
+
+void BinaryHeap::BuildBinaryHeap(vector<int>arr){
+    heap.resize(arr.size()+1);
+    for(int i=0;i<arr.size();i++){
+        heap[i+1].element='a'+i;
+        heap[i+1].key=arr[i];
+    }
+}
+
+class MaxHeap :public BinaryHeap{
     public:
-        void MaxHeapVerify(int index,int key);
+        void MaxHeapVerify(int index,int range);
         void BuildMaxHeap(vector<int>arr);
-        int MaxValue();
-        int ExtractMax();
+        void IncreaseKey(int element,int newKey);
+        void showheap();
+        int MaxValue(){return heap[1].element;};
+        int ExtractMax(); 
+        
 };
 
+
+void MaxHeap::MaxHeapVerify(int index,int range){
+    int left=2*index,
+        right=2*index+1,
+        biggest;
+
+    if(left<=range && heap[left].key > heap[index].key)biggest=left;
+    else biggest=index;
+    
+    if(right<=range && heap[right].key > heap[biggest].key)biggest=right;
+    
+    if(biggest!=index){
+        swap(heap[biggest],heap[index]);
+        MaxHeapVerify(biggest,range);
+    }
+}
+
+void MaxHeap::BuildMaxHeap(vector<int>arr){
+    BuildBinaryHeap(arr);
+    for(int i=heap.size()/2;i>=1;i--){
+        MaxHeapVerify(i,arr.size());
+    }   
+}
+
+void MaxHeap::IncreaseKey(int element,int newKey){
+
+    int index=FindPosition(element);
+    if(index==0){
+        cout<<"The node doesn't exist.\n";
+        return ;
+    }
+    
+    if(newKey < heap[index].key){
+        cout<<"new key is lower than current key.\n";
+        return ;
+    }
+    
+    heap[index].key=newKey;
+    
+    while(index>1 && heap[GetParent(index)].key < heap[index].key){
+        swap(heap[GetParent(index)],heap[index]);
+        index=GetParent(index);
+    }
+
+}
+
+void MaxHeap::showheap(){
+    for(int i=1;i<heap.size();i++){
+        cout<<heap[i].key<<"  "<<heap[i].element<<endl;
+    }
+}
+
+int MaxHeap::ExtractMax(){
+    if(IsHeapEmpty()){
+        cout<<"Heap is empty.\n";
+        return -1;
+    }
+    int ret=heap[1].element;
+    
+    heap[1]=heap[heap.size()-1];
+    heap.pop_back();
+    MaxHeapVerify(1,heap.size()-1);
+    
+    return ret;
+}
 
 
 int main(){
+    MaxHeap test;
+    vector<int>arr={1,2,3,4};
+    test.BuildMaxHeap(arr);
+    test.showheap();
+
+    test.IncreaseKey(97,100);
+    test.showheap();
 
 
     return 0;

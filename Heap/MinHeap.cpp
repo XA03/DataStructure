@@ -32,7 +32,7 @@ class BinaryHeap{
 
 class MinHeap{
     public:
-        void MinHeapVerify(int index,int key);
+        void MinHeapVerify(int index,int range);
         void BuildMaxHeap()
 
 };
