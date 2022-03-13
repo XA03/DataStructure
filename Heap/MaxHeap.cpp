@@ -108,9 +108,17 @@ void MaxHeap::MaxHeapInsert(int element,int key){
 }
 
 void MaxHeap::showheap(){
-    for(int i=1;i<heap.size();i++){
-        cout<<heap[i].key<<"  "<<heap[i].element<<endl;
+
+    if(IsHeapEmpty()){
+        cout<<"Heap is empty.\n";
+        return ;
     }
+
+    cout<<"key  element\n";
+    for(int i=1;i<heap.size();i++){
+        printf("%-4d %-4d\n",heap[i].key,heap[i].element);
+    }
+    cout<<endl;
 }
 
 int MaxHeap::ExtractMax(){
@@ -134,9 +142,19 @@ int main(){
     test.BuildMaxHeap(arr);
     test.showheap();
 
+    cout<<test.heap[test.GetParent(3)].key<<endl;
+    cout<<test.heap[test.FindPosition(100)].key<<endl;
+
     test.IncreaseKey(97,100);
+    test.MaxHeapInsert(999,12);
     test.showheap();
 
+    test.ExtractMax();
+    test.ExtractMax();
+    test.ExtractMax();
+    test.ExtractMax();
+    test.ExtractMax();
+    test.showheap();
 
     return 0;
 }

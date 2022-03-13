@@ -107,7 +107,16 @@ void MinHeap::MinHeapInsert(int element,int key){
 }
 
 void MinHeap::showheap(){
-    for(int i=1;i<heap.size();i++)cout<<heap[i].element<<"  "<<heap[i].key<<endl;
+    if(IsHeapEmpty()){
+        cout<<"Heap is empty.\n";
+        return ;
+    }
+
+    cout<<"key  element\n";
+    for(int i=1;i<heap.size();i++){
+        printf("%-4d %-4d\n",heap[i].key,heap[i].element);
+    }
+    cout<<endl;
 }
 
 int MinHeap::ExtractMin(){
@@ -132,7 +141,18 @@ int main(){
     test.BuildMinHeap(arr);
     test.showheap();
 
+    cout<<test.heap[test.GetParent(3)].key<<endl;
+    cout<<test.heap[test.FindPosition(100)].key<<endl;
+
     test.DecreaseKey(25,1);
+    test.MinHeapInsert(999,12);
+    test.showheap();
+
+    test.ExtractMin();
+    test.ExtractMin();
+    test.ExtractMin();
+    test.ExtractMin();
+    test.ExtractMin();
     test.showheap();
 
     return 0;
