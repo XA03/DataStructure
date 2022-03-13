@@ -48,6 +48,7 @@ class MaxHeap :public BinaryHeap{
         void MaxHeapVerify(int index,int range);
         void BuildMaxHeap(vector<int>arr);
         void IncreaseKey(int element,int newKey);
+        void MaxHeapInsert(int element,int newKey);
         void showheap();
         int MaxValue(){return heap[1].element;};
         int ExtractMax(); 
@@ -98,6 +99,12 @@ void MaxHeap::IncreaseKey(int element,int newKey){
         index=GetParent(index);
     }
 
+}
+
+void MaxHeap::MaxHeapInsert(int element,int key){
+    node insert_node(key,element);
+    heap.push_back(insert_node);
+    IncreaseKey(element,key);
 }
 
 void MaxHeap::showheap(){
