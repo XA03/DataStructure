@@ -1,0 +1,5 @@
+Priority Queue 與 Queue不同 沒有所謂的front,end
+
+只有透過top()來得到目前Priority Queue中Priority最大(小)的元素
+
+其餘Operation與Max、Min Heap沒有不同 往後有更高階資料結構實作再補
