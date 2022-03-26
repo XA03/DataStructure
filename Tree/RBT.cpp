@@ -40,6 +40,7 @@ class RBT{
         void insert(int element,int key);
         void insertfix(node* cur);
         void deletion(int key);
+        void deletion(node* cur);
 };
 
 node* RBT::Search(int key){
@@ -180,7 +181,37 @@ void RBT::insertfix(node* cur){
 }
 
 void RBT::deletion(int key){
+    node* de_node=Search(key);
 
+    if(de_node==sentinel){
+        cout<<"沒有這個node\n";
+        return ;
+    }
+
+    node* release;
+    node* release_child;
+    if(de_node->left==sentinel || de_node->right==sentinel)release=de_node;
+    else release=Successor(de_node);
+
+    if(release->left!=sentinel)release_child=release->left;
+    else release_child=release->right;
+
+    release_child->parent=de_node->parent;//release_child may be sentinel. It's promising.
+
+    if(de_node->parent==sentinel)root=release_child;
+    else if(release==release->left)release->parent->left=release->child;
+    else release->parent->right=release_child;
+
+    if(release!=de_node){
+        de_node->key=release->key;
+        de_node->element=release->element;
+    }
+
+    if(release->color==1){
+        deletionfix(release_child);
+    }
+
+    delete release;
 }
 
 int main(){
