@@ -40,7 +40,7 @@ class RBT{
         void insert(int element,int key);
         void insertfix(node* cur);
         void deletion(int key);
-        void deletion(node* cur);
+        void deletionfix(node* cur);
 };
 
 node* RBT::Search(int key){
@@ -199,7 +199,7 @@ void RBT::deletion(int key){
     release_child->parent=de_node->parent;//release_child may be sentinel. It's promising.
 
     if(de_node->parent==sentinel)root=release_child;
-    else if(release==release->left)release->parent->left=release->child;
+    else if(release==release->left)release->parent->left=release_child;
     else release->parent->right=release_child;
 
     if(release!=de_node){
@@ -212,6 +212,72 @@ void RBT::deletion(int key){
     }
 
     delete release;
+}
+
+void RBT::deletionfix(node* cur){
+    while(cur!=root && cur->color==1){
+        node* sibling; 
+        if(cur==cur->parent->left){
+            sibling=cur->parent->right;
+            if(sibling->color==0){
+                sibling->color=1;
+                sibling->parent->color=0;
+                leftrotation(cur->parent);
+                sibling=cur->parent->right;
+            }
+
+            if(sibling->left->color==1 && sibling->right->color==1){
+                sibling->color=0;
+                cur=cur->parent;
+            }
+
+            else{
+                if(sibling->right->color==1){
+                    sibling->left->color=1;
+                    sibling->color==0;
+                    rightrotation(sibling);
+                    sibling=cur->parent->right;
+                }
+
+                sibling->color=cur->parent->color;
+                cur->parent->color=1;
+                ibling->right->color=1;
+                leftrotation(cur->parent);
+                cur=root;
+            }
+        }
+        else{
+            sibling=cur->parent->left;
+
+            if(sibling->color==0){
+                cur->parent->color=0;
+                sibling->color=1;
+                rightrotation(cur->parent);
+                sibling=cur->parent->left;
+            }
+
+            if(sibling->left->color=1= && sibling->right->color=1){
+                sibling->color=0;
+                cur=cur->parent;
+            }
+
+            else{
+                if(sibling->left->color==1){
+                    sibling->right->color=1;
+                    sibling->color=0;
+                    leftrotation(sibling);
+                    sibling=cur->parent->left;
+                }
+
+                sibling->color=cur->parent->color;
+                cur->parent->color=1;
+                sibling->left->color=1;
+                rightrotation(cur->parent);
+                cur=root;
+            }
+        }
+    }
+    cur->color=1;
 }
 
 int main(){
