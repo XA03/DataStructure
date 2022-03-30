@@ -30,12 +30,14 @@ class BinaryHeap{
 };
 
 int BinaryHeap::FindPosition(int content){
+
     int ret=0;
     for(int i=1;i<heap.size();i++)if(heap[i].element==content)return i;
     return 0;
 }
 
 void BinaryHeap::BuildBinaryHeap(vector<int>arr){
+    //O(n)
     heap.resize(arr.size()+1);
     for(int i=0;i<arr.size();i++){
         heap[i+1].element='a'+i;
@@ -73,6 +75,7 @@ void MaxHeap::MaxHeapVerify(int index,int range){
 }
 
 void MaxHeap::BuildMaxHeap(vector<int>arr){
+    //O(nlgn) 但經證明更緊的上界是O(n)
     BuildBinaryHeap(arr);
     for(int i=heap.size()/2;i>=1;i--){
         MaxHeapVerify(i,arr.size());
@@ -80,8 +83,9 @@ void MaxHeap::BuildMaxHeap(vector<int>arr){
 }
 
 void MaxHeap::IncreaseKey(int element,int newKey){
+    //O(lgn)
 
-    int index=FindPosition(element);
+    int index=FindPosition(element);//探討複雜度時預設有這個node 
     if(index==0){
         cout<<"The node doesn't exist.\n";
         return ;
@@ -94,7 +98,7 @@ void MaxHeap::IncreaseKey(int element,int newKey){
     
     heap[index].key=newKey;
     
-    while(index>1 && heap[GetParent(index)].key < heap[index].key){
+    while(index>1 && heap[GetParent(index)].key < heap[index].key){ //最多lgn次
         swap(heap[GetParent(index)],heap[index]);
         index=GetParent(index);
     }
@@ -102,9 +106,10 @@ void MaxHeap::IncreaseKey(int element,int newKey){
 }
 
 void MaxHeap::MaxHeapInsert(int element,int key){
-    node insert_node(key,element);
+    //O(lgn) 
+    node insert_node(key,element);//新增node時可以把key設成無限小
     heap.push_back(insert_node);
-    IncreaseKey(element,key);
+    IncreaseKey(element,key);//設定key並調整至符合MaxHeap
 }
 
 void MaxHeap::showheap(){
@@ -122,6 +127,7 @@ void MaxHeap::showheap(){
 }
 
 int MaxHeap::ExtractMax(){
+    //O(lgn) 因為彈出去要調整MaxHeap
     if(IsHeapEmpty()){
         cout<<"Heap is empty.\n";
         return -1;
